@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id('penjualan_id');
             $table->unsignedBigInteger('user_id')->index();
             $table->string('pembeli', 50);
-            $table->string('penjualan_kode', 50)->unique();
+            $table->string('penjualan_kode', 20)->unique();
             $table->dateTime('penjualan_tanggal');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('user_id')->on('m_user');
         });
     }
 
