@@ -29,11 +29,23 @@
             </tr> --}}
 
             <!-- Praktikum JS 4 2.3 No 3-->
-            <tr>
+            {{-- <tr>
                 <td>Jumlah Pengguna</td>
             </tr>
             <tr>
                 <td>{{$data}}</td>
+            </tr> --}}
+            <tr>
+                <td>ID</td>
+                <td>Username</td>
+                <td>Nama</td>
+                <td>ID Level Pengguna</td>
+            </tr>
+            <tr>
+                <td>{{$data->user_id}}</td> 
+                <td>{{$data->username}}</td> 
+                <td>{{$data->nama}}</td> 
+                <td>{{$data->level_id}}</td>
             </tr>
 
         </table>
