@@ -11,7 +11,7 @@ class BarangModel extends Model
     use HasFactory;
 
     protected $table = 'm_barang';
-    protected $primayKey = 'barang_id';
+    protected $primaryKey = 'barang_id';
 
     protected $fillable =['kategori_id', 'barang_kode', 'barang_nama', 'harga_jual', 'harga_beli'];
 

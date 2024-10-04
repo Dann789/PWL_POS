@@ -5,6 +5,7 @@ use App\Models\BarangModel;
 use App\Models\KategoriModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class BarangController extends Controller
 {
@@ -26,23 +27,35 @@ class BarangController extends Controller
     }
 
     public function list(Request $request) {
+        // Ambil data user beserta levelnya
         $barang = BarangModel::select('barang_id', 'kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
-        ->with('kategori');
+            ->with('kategori'); // memuat relasi level
 
-        if($request->kategori_id) {
+        // Filter data user berdasarkan level_id
+        if ($request->kategori_id) {
             $barang->where('kategori_id', $request->kategori_id);
         }
 
+        // Return data untuk DataTables
         return DataTables::of($barang)
-        ->addIndexColumn()
-        ->addColumn('aksi', function ($barang) { // Menambah kolom aksi
-            $btn = '<a href ="'.url('/barang/' . $barang->barang_id).'" class="btn btn-info btn-sm">Detail</a> ';
-            $btn .= '<a href ="'.url('/barang/' . $barang->barang_id . '/edit').'" class="btn btn-warning btn-sm">Edit</a> ';
-            $btn .= '<form class="d-inline-block" method="POST" action="'.url('/barang/'. $barang->barang_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onlick="return confirm(\'Apakah anda yakin menghapus data ini?\');">Hapus</button></form>';
-            return $btn;
-        })
-        ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
-        ->make(true);
+            ->addIndexColumn() // menambahkan kolom index / nomor urut
+            ->addColumn('aksi', function ($brg) {
+                // Menambahkan kolom aksi untuk edit, detail, dan hapus
+
+                // $btn = '<a href="' . url('/user/' . $user->user_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                // $btn .= '<a href="' . url('/user/' . $user->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                // $btn .= '<form class="d-inline-block" method="POST" action="' . url('/user/' . $user->user_id) . '">'
+                //     . csrf_field() . method_field('DELETE') .
+                //     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                // return $btn;
+
+                $btn = '<button onclick="modalAction(\'' . url('/barang/' . $brg->barang_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/barang/' . $brg->barang_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/barang/' . $brg->barang_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
+                return $btn;
+            })
+            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi berisi HTML
+            ->make(true);
     }
 
     public function create() {
@@ -149,5 +162,117 @@ class BarangController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/barang')->with('error', 'Data barang gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
+    }
+
+    public function create_ajax()
+     {
+         $kategori = KategoriModel::select('kategori_id', 'kategori_nama')->get();
+         return view('barang.create_ajax')
+             ->with('kategori', $kategori);
+     }
+     public function store_ajax(Request $request)
+     {
+         // Cek apakah request berupa ajax atau ingin JSON
+         if ($request->ajax() || $request->wantsJson()) {
+             $rules = [
+                 'barang_kode' => 'required|string|max:10|unique:m_barang,barang_kode',
+                 'barang_nama' => 'required|string|max:100',
+                 'kategori_id' => 'required|integer',
+                 'harga_beli' => 'required|integer',
+                 'harga_jual' => 'required|integer'
+             ];
+ 
+             // Gunakan Validator dari Illuminate\Support\Facades\Validator;
+             $validator = Validator::make($request->all(), $rules);
+             // Jika validasi gagal
+             if ($validator->fails()) {
+                 return response()->json([
+                     'status' => false, // response status, false: error/gagal, true: berhasil
+                     'message' => 'Validasi Gagal',
+                     'msgField' => $validator->errors(), // pesan error validasi
+                 ]);
+             }
+             // Simpan data user
+             BarangModel::create($request->all());
+ 
+             // Jika berhasil
+             return response()->json([
+                 'status' => true,
+                 'message' => 'Data barang berhasil disimpan',
+             ]);
+         }
+         // Redirect jika bukan request Ajax
+         return redirect('/');
+     }
+
+    public function edit_ajax(string $id) {
+        $barang = BarangModel::find($id);
+        $kategori = kategoriModel::select('kategori_id', 'kategori_nama')->get();
+
+        return view('barang.edit_ajax',['barang' => $barang, 'kategori' => $kategori]);
+    }
+
+    public function update_ajax(Request $request, $id) {
+        // cek apakah request dari ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'barang_kode' => 'required|string|max:10|unique:m_barang,barang_kode,'.$id.',barang_id',
+                'barang_nama' => 'required|string|max:100',
+                'kategori_id' => 'required|integer',
+                'harga_beli' => 'required|integer',
+                'harga_jual' => 'required|integer'
+            ];
+
+            // use Illuminate\Support\Facades\Validator;
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false, // respon json, true: berhasil, false: gagal
+                    'message' => 'Validasi gagal.',
+                    'msgField' => $validator->errors() // menunjukkan field mana yang error
+                ]);
+            }
+
+            $check = BarangModel::find($id);
+            if ($check) {
+                $check->update($request->all());
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diupdate'
+                ]);
+            } else{
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+        return redirect('/');
+    }
+
+    public function confirm_ajax(string $id) {
+        $barang = BarangModel::find($id);
+
+        return view('barang.confirm_ajax', ['barang' => $barang]);
+    }
+
+    public function delete_ajax(Request $request, $id) {
+        // cek apakah request dari ajax
+        if ($request->ajax() || $request->wantsJson()) {
+            $barang = BarangModel::find($id);
+            if ($barang) {
+                $barang->delete();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil dihapus'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Data tidak ditemukan'
+                ]);
+            }
+        }
+        return redirect('/');
     }
 }
