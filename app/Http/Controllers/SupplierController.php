@@ -177,7 +177,7 @@ class SupplierController extends Controller
              // Jika berhasil
              return response()->json([
                  'status' => true,
-                 'message' => 'Data barang berhasil disimpan',
+                 'message' => 'Data supplier berhasil disimpan',
              ]);
          }
          // Redirect jika bukan request Ajax
