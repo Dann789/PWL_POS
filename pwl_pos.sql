@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 14, 2024 at 01:00 PM
+-- Generation Time: Oct 16, 2024 at 03:25 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -106,7 +106,8 @@ INSERT INTO `m_barang` (`barang_id`, `kategori_id`, `barang_kode`, `barang_nama`
 (12, 2, 'PS01', 'Pocari Sweat 350ml', 7300, 8000, NULL, NULL),
 (13, 3, 'P3C01', 'Penggaris 30cm', 5000, 5200, NULL, NULL),
 (14, 4, 'MG01', 'Minyak Goreng 500ml', 39600, 41000, NULL, NULL),
-(15, 5, 'MKP01', 'Minyak Kayu Putih 30ml', 15000, 17000, NULL, NULL);
+(15, 5, 'MKP01', 'Minyak Kayu Putih 30ml', 15000, 17000, NULL, NULL),
+(16, 1, 'OREO1', 'Oreo Vanilla', 3500, 4000, '2024-10-02 19:33:49', '2024-10-02 19:33:49');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,10 @@ INSERT INTO `m_kategori` (`kategori_id`, `kategori_kode`, `kategori_nama`, `crea
 (2, 'MNA', 'Minuman', NULL, NULL),
 (3, 'ALT', 'Alat Tulis', NULL, NULL),
 (4, 'KRT', 'Kebutuhan Rumah Tangga', NULL, NULL),
-(5, 'OBT', 'Obat-obatan', NULL, NULL);
+(5, 'OBT', 'Obat-obatan', NULL, NULL),
+(7, 'ELT', 'Elektronik', '2024-10-01 18:02:20', '2024-10-01 18:02:20'),
+(8, 'MNN', 'Mainan Anak-Anak', '2024-10-01 18:03:03', '2024-10-02 10:33:40'),
+(10, 'KBR', 'Kebersihan Rumah', '2024-10-04 06:11:59', '2024-10-04 08:10:53');
 
 -- --------------------------------------------------------
 
@@ -155,7 +159,12 @@ INSERT INTO `m_level` (`level_id`, `level_kode`, `level_nama`, `created_at`, `up
 (1, 'ADM', 'Administrator', NULL, NULL),
 (2, 'MNG', 'Manager', NULL, NULL),
 (3, 'STF', 'Staff/Kasir', NULL, NULL),
-(4, 'CUS', 'Pelanggan', '2024-09-14 02:08:08', NULL);
+(4, 'CUS', 'Pelanggan', '2024-09-14 02:08:08', '2024-10-01 15:15:36'),
+(5, 'OB', 'Staff Kebersihan', '2024-09-29 19:20:45', '2024-10-01 15:15:04'),
+(8, 'wkwk', 'heheheha acumalaka', '2024-10-01 17:29:49', '2024-10-02 06:35:38'),
+(10, 'asssh', 'apa aja dh', '2024-10-04 03:23:56', '2024-10-04 03:23:56'),
+(11, 'KJW', 'Kepala Jurusan', '2024-10-04 03:55:39', '2024-10-04 03:55:39'),
+(12, 'SKJ1', 'Sekjur1', '2024-10-04 04:11:54', '2024-10-04 08:14:37');
 
 -- --------------------------------------------------------
 
@@ -177,9 +186,13 @@ CREATE TABLE `m_supplier` (
 --
 
 INSERT INTO `m_supplier` (`supplier_id`, `supplier_kode`, `supplier_nama`, `supplier_alamat`, `created_at`, `updated_at`) VALUES
-(1, 'SPL01', 'PT Segar Jaya', 'Jl. Merdeka No. 123, Jakarta', NULL, NULL),
+(1, 'SPL01', 'PT Segar Jaya Nasional', 'Jl. Merdeka No. 123, Jakarta', NULL, '2024-10-03 09:00:47'),
 (2, 'SPL02', 'CV. Maju Makmur', 'Jl. Melati No. 45, Bandung', NULL, NULL),
-(3, 'SPL03', 'PT Prima Abadi', 'Jl. Kamboja No. 5, Semarang', NULL, NULL);
+(3, 'SPL03', 'PT Prima Abadi', 'Jl. Kamboja No. 5, Semarang', NULL, NULL),
+(4, 'SPL04', 'PT Jaya Selamanya', 'JL. Penyu Hitam Karangkates', '2024-10-03 08:39:41', '2024-10-03 08:39:41'),
+(5, 'SPL05', 'CV Sejahtera Bahagia', 'JL. Mars Venus 123', '2024-10-03 09:08:51', '2024-10-03 09:08:51'),
+(8, 'SPL06', 'XXYYYZZZ1', 'JL. Mana Saja No Berapa Aja yhh', '2024-10-04 06:59:00', '2024-10-04 07:10:46'),
+(11, 'SPL08', 'PT Andai Maju', 'JL. Jupiter Dinoyo 456', '2024-10-04 08:36:48', '2024-10-04 08:36:48');
 
 -- --------------------------------------------------------
 
@@ -202,10 +215,27 @@ CREATE TABLE `m_user` (
 --
 
 INSERT INTO `m_user` (`user_id`, `level_id`, `username`, `nama`, `password`, `created_at`, `updated_at`) VALUES
-(1, 1, 'admin', 'Administrator', '$2y$12$hOEfdJ7zrhXj9TeHrPQUke3kHdamlnoD4PFW/.04qEGETHtRo41pO', NULL, NULL),
-(2, 2, 'manager', 'Manager', '$2y$12$h3IkW2qkuimoHK507zyXyem1qve7Gdq/S/nTbV1ibkn5YIyf8bOEG', NULL, NULL),
+(1, 1, 'adminrill', 'Administrator Asli', '$2y$12$KdSsIMdlEQUfjDmtKFs9n.vZSq4jdTxrxnT191xvMeVgroEEBvDOS', NULL, '2024-09-20 06:16:54'),
+(2, 2, 'manager1', 'Manager One', '$2y$12$Dz6B/fo08XMfL2dvqWmOEOUGkDU63.vxzDnnhel3PRbUH6PSMsubG', NULL, '2024-09-27 18:09:33'),
 (3, 3, 'staff', 'Staff/Kasir', '$2y$12$2W4hU8diziebfzeojHlOrulyrZJ7xvjcbs0JHRbUIBuKm6P.KhPeS', NULL, NULL),
-(6, 4, 'customer-1', 'Pelanggan Pertama', '$2y$12$POFJhPqrKTTrgajyxf0HS.zEO81MGRbCUI59Xb262042ZAb.YjIGG', NULL, '2024-09-14 02:14:45');
+(6, 4, 'customer-1', 'Pelanggan Pertama', '$2y$12$POFJhPqrKTTrgajyxf0HS.zEO81MGRbCUI59Xb262042ZAb.YjIGG', NULL, '2024-09-14 02:14:45'),
+(7, 2, 'manager_dua', 'Manager 2', '$2y$12$Yn.RVphbtAGUbxX7QTOuJuSsjPObnkJjbU0I/Y3bvZ6gqYgOZ7zn.', '2024-09-17 17:48:47', '2024-09-17 17:48:47'),
+(8, 2, 'manager22', 'Manager Dua Dua', '$2y$12$QBG8McReWZ0y5v6rryBw5.PUvuWIq2Xi5FFeuMtn0V/YOAzqGAMsS', '2024-09-19 01:29:14', '2024-09-19 01:29:14'),
+(9, 2, 'manager33', 'Manager Tiga Tiga', '$2y$12$CvG3RG1lcafmHUvpY2gFjOlkd55DCej6Snro5.rDCl2XfIOKDHFca', '2024-09-19 02:03:10', '2024-09-19 02:03:10'),
+(14, 2, 'manager56', 'Manager55', '$2y$12$xec2Y4GAsge/Du3mtOcpP.ylC7WS08afwsE7.mAnxqsuN84NnDRHy', '2024-09-19 07:21:18', '2024-09-19 07:21:19'),
+(15, 2, 'manager12', 'Manager11', '$2y$12$fkney.xvF6B/9rvqznLOJexb6bo2jkUFru7hIGppyQzjcQdArzMby', '2024-09-19 07:29:10', '2024-09-19 07:29:10'),
+(17, 2, 'managernew', 'Manager baru', '$2y$12$IHF54O40J.awofoOctsGPuGXukgPLtlscsGC8Msl.fEuckhBnNfIq', '2024-09-20 06:25:55', '2024-09-20 06:25:55'),
+(18, 2, 'manager18', 'Manager ke-18', '$2y$12$LxaleYzAfvrHhFs8caFvauCuan/o4b0m7LHfR9Vt0cikrLP9AUNN2', '2024-09-20 07:20:44', '2024-09-20 07:20:44'),
+(19, 3, 'staff2', 'StaffSecond', '$2y$12$qCqF8vlPQow8dA5SZ5R09uQvfYxcBbexqyiiK1asaeMwDqFZycdtW', '2024-09-27 02:08:48', '2024-09-27 02:08:48'),
+(20, 4, 'pelanggannew', 'Pelanggan Baru11', '$2y$12$6xYSKVIXPl/3LzwjlaIvWOuil0dQEwf5/y8Z/HD0oAVXdjZU.g2AK', '2024-09-27 02:57:56', '2024-10-03 22:31:08'),
+(21, 4, 'pelanggan3', 'Pelanggan Ketiga', '$2y$12$.iumkC2hKt5C8CBGrajfceWAFk3BKgtsKgVqVM3SxsVMHQHnHPot2', '2024-09-27 03:08:56', '2024-09-27 03:08:56'),
+(23, 4, 'pp092', 'Pelanggan No 092', '222222', '2024-10-03 20:56:39', '2024-10-03 22:28:46'),
+(25, 1, 'admin2', 'Admin ke-2', '$2y$12$BUgO6gGpwsWoi0QiKjBObOw.G5Rz7b1yf6EI1hxHMe7z4CgDoHX/G', '2024-10-08 19:12:28', '2024-10-08 19:12:28'),
+(26, 1, 'ahmad', 'ahmad', '$2y$12$2bw.ryww2bqYd4S/suThFuylzapgzJUBNCK7EJqhG5v22bFUuTwGy', '2024-10-08 20:44:31', '2024-10-08 20:44:31'),
+(27, 1, 'bangadmin', 'BangAdmin123', '666666', NULL, NULL),
+(28, 1, 'wildan1', 'Wildan Rama', '$2y$12$CY8l.Jk8nqP1rh.EqskgYu0oFeg7QAeUcHy4dBhTxPKd/OvdNNdMm', '2024-10-15 17:23:46', '2024-10-15 17:23:46'),
+(29, 1, 'rama20', 'Ramadhana', '$2y$12$JsF/yzbSZx/crfhYXC.xl.Jm/NlcRZH59MiESYyUVlkj8Pwmzd81a', '2024-10-15 18:00:11', '2024-10-15 18:00:11'),
+(30, 2, 'rezakecap', 'Reza G', '$2y$12$vDDI8XfN5rqDJa053JoxWevJFWEazbE7qM/P5ialFjTEHXnGyu86C', '2024-10-15 18:09:00', '2024-10-15 18:09:00');
 
 -- --------------------------------------------------------
 
@@ -473,31 +503,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `m_barang`
 --
 ALTER TABLE `m_barang`
-  MODIFY `barang_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `barang_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `m_kategori`
 --
 ALTER TABLE `m_kategori`
-  MODIFY `kategori_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `kategori_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `m_level`
 --
 ALTER TABLE `m_level`
-  MODIFY `level_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `level_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `m_supplier`
 --
 ALTER TABLE `m_supplier`
-  MODIFY `supplier_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `supplier_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `m_user`
 --
 ALTER TABLE `m_user`
-  MODIFY `user_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
