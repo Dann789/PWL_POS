@@ -11,14 +11,13 @@ class UserModel extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'm_user';        // Mendefinisikan nama tabel yang digunakan oleh model ini
-    protected $primaryKey = 'user_id';  // Mendfinisikan primary key dari tabel yang digunakan
-    protected $fillable = ['level_id','username', 'nama', 'password', 'created_at', 'updated_at'];
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
+    protected $fillable = ['level_id', 'username', 'nama', 'password', 'created_at', 'update_at'];
     protected $hidden = ['password'];
     protected $casts = ['password' => 'hashed'];
 
-
-    public function level() : BelongsTo
+    public function level(): BelongsTo
     {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }

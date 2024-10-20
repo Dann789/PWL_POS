@@ -45,13 +45,13 @@
                     <p>Data Barang</p>
                 </a>
             </li>
-            <li class="nav-header">Data Transaksi</li>
             <li class="nav-item">
                 <a href="{{ url('/supplier') }}" class="nav-link {{ $activeMenu == 'supplier' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-truck"></i>
                     <p>Supplier</p>
                 </a>
             </li>
+            <li class="nav-header">Data Transaksi</li>
             <li class="nav-item">
                 <a href="{{ url('/stok') }}" class="nav-link {{ $activeMenu == 'stok' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-cubes"></i>
@@ -62,6 +62,12 @@
                 <a href="{{ url('/penjualan') }}" class="nav-link {{ $activeMenu == 'penjualan' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-cash-register"></i>
                     <p>Transaksi Penjualan</p>
+                </a>
+            </li>
+            <li class="nav-item bg-danger">
+                <a href="{{ url('/logout') }}" class="nav-link {{ $activeMenu == 'logout' ? 'active' : '' }} ">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Log Out</p>
                 </a>
             </li>
         </ul>
