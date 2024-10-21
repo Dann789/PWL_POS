@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login Pengguna</title>
+    <title>Daftar Pengguna</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,15 +19,28 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
+<body class="hold-transition register-page">
+    <div class="register-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-                <form action="{{ url('login') }}" method="POST" id="form-login">
+                <p class="register-box-msg">Register New Staff</p>
+                <form action="{{ url('register') }}" method="POST" id="form-register">
                     @csrf
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <select name="level_id" id="level_id" class="form-control" required>
+                                <option value="">- Pilih Level -</option>
+                                @foreach ($level as $item)
+                                    <option value="{{ $item->level_id}}">{{ $item->level_nama}}</option>
+                                @endforeach
+                            </select>
+                            @error('level_id')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control"
                             placeholder="Username">
@@ -37,6 +50,16 @@
                             </div>
                         </div>
                         <small id="error-username" class="error-text text-danger"></small>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" id="nama" name="nama" class="form-control"
+                            placeholder="Nama">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        <small id="error-nama" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" id="password" name="password" class="form-control"
@@ -50,11 +73,11 @@
                     </div>
                     <div class="row">
                         <div class="col-8 mt-2">
-                            <a href="{{ url('register') }}" class="text-left">Belum punya akun?</a>
+                            <a href="{{ url('login') }}" class="text-left">Sudah punya akun?</a>
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -86,9 +109,10 @@
       });
 
       $(document).ready(function() {
-        $('#form-login').validate({
+        $('#form-register').validate({
           rules: {
             username: {required: true, minlength: 4, maxlength: 20},
+            nama: {required: true, maxlength: 100},
             password: {required: true, minlength: 6, maxlength: 20}
           },
           submitHandler: function(form) {
