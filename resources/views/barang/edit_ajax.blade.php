@@ -38,16 +38,6 @@
                         <small id="error-barang_nama" class="error-text form-text text-danger"></small>
                     </div>
                     <div class="form-group">
-                        <label>Kategori Barang</label>
-                        <select name="kategori_id" id="kategori_id" class="form-control" required>
-                            @foreach ($kategori as $l)
-                            <option {{ $l->kategori_id == $barang->kategori_id ? 'selected' : '' }}
-                                value="{{ $l->kategori_id }}">{{ $l->kategori_nama }}</option>
-                            @endforeach
-                        </select>
-                        <small id="error-level_id" class="error-text form-text text-danger"></small>
-                    </div>
-                    <div class="form-group">
                         <label>Harga Beli</label>
                         <input value="{{ $barang->harga_beli }}" type="number" name="harga_beli" id="harga_beli" class="form-control"
                             required>
@@ -58,6 +48,16 @@
                         <input value="{{ $barang->harga_jual }}" type="number" name="harga_jual" id="harga_jual" class="form-control"
                             required>
                         <small id="error-harga_jual" class="error-text form-text text-danger"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori Barang</label>
+                        <select name="kategori_id" id="kategori_id" class="form-control" required>
+                            @foreach ($kategori as $l)
+                            <option {{ $l->kategori_id == $barang->kategori_id ? 'selected' : '' }}
+                                value="{{ $l->kategori_id }}">{{ $l->kategori_nama }}</option>
+                            @endforeach
+                        </select>
+                        <small id="error-level_id" class="error-text form-text text-danger"></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -71,10 +71,6 @@
         $(document).ready(function() {
             $("#form-edit").validate({
                 rules: {
-                    kategori_id: {
-                        required: true,
-                        number: true
-                    },
                     barang_kode: {
                         required: true,
                         minlength: 3,
@@ -92,7 +88,11 @@
                     harga_jual: {
                         required: true,
                         number: true
-                    }
+                    },
+                    kategori_id: {
+                        required: true,
+                        number: true
+                    },
                 },
                 submitHandler: function(form) {
                     $.ajax({
