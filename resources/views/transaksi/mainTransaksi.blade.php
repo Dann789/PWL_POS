@@ -6,10 +6,10 @@
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
                 {{-- <a href="{{ url('supplier/create') }}" class="btn btn-sm btn-primary mt-1">Tambah</a> --}}
-                <button onclick="modalAction('{{ url('/supplier/import') }}')" class="btn btn-info"><i class="fa fa-file-import"></i> Import Supplier</button>
-                <a href="{{ url('/supplier/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export Supplier</a>
-                <a href="{{ url('/supplier/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Supplier</a>
-                <button onclick="modalAction('{{ url('supplier/create_ajax') }}')" class="btn btn-success mt-1">Tambah Supplier (Ajax)</button>
+                <button onclick="modalAction('{{ url('/penjualan/import') }}')" class="btn btn-info"><i class="fa fa-file-import"></i> Import Transaksi</button>
+                <a href="{{ url('/penjualan/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export Transaksi</a>
+                <a href="{{ url('/penjualan/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Transaksi</a>
+                <button onclick="modalAction('{{ url('penjualan/create_ajax') }}')" class="btn btn-success">Tambah Transaksi (Ajax)</button>
             </div>
         </div>
         <div class="card-body">
@@ -19,13 +19,14 @@
             @if (session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
-            <table class="table table-bordered table-striped table-hover table-sm" id="table_supplier">
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_penjualan">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Kode Supplier</th>
-                        <th>Nama Supplier</th>
-                        <th>Alamat Supplier</th>
+                        <th>Nama User</th>
+                        <th>Pembeli</th>
+                        <th>Kode Penjualan</th>
+                        <th>Tanggal Penjualan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,12 +48,12 @@
             });
         }
 
-        var dataSupplier;
+        var dataPenjualan;
         $(document).ready(function() {
-            dataSupplier = $('#table_supplier').DataTable({
+            dataPenjualan = $('#table_penjualan').DataTable({
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('supplier/list') }}",
+                    "url": "{{ url('penjualan/list') }}",
                     "dataType": "json",
                     "type": "POST"
                 },
@@ -63,20 +64,25 @@
                         orderable: false,
                         searchable: false
                     }, {
-                        data: "supplier_kode",
+                        data: "user.nama",
+                        className: "",
+                        orderable: false,
+                        searchable: true
+                    }, {
+                        data: "pembeli",
+                        className: "",
+                        orderable: false,
+                        searchable: true
+                    }, {
+                        data: "penjualan_kode",
                         className: "",
                         orderable: true,
                         searchable: true
                     }, {
-                        data: "supplier_nama",
+                        data: "penjualan_tanggal",
                         className: "",
                         orderable: true,
-                        searchable: true
-                    }, {
-                        data: "supplier_alamat",
-                        className: "",
-                        orderable: true,
-                        searchable: true
+                        searchable: false
                     }, {
                         data: "aksi",
                         className: "",

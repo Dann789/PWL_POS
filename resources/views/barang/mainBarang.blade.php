@@ -7,12 +7,12 @@
                 <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-info"><i class="fa fa-file-import"></i> Import Barang</button>
                 <a href="{{ url('/barang/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export Barang</a>
                 <a href="{{ url('/barang/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i> Export Barang</a>
-                <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">Tambah Data(Ajax)</button>
+                <button onclick="modalAction('{{ url('/barang/create_ajax') }}')" class="btn btn-success">Tambah Barang (Ajax)</button>
             </div>
         </div>
         <div class="card-body">
             <!-- untuk Filter data -->
-            <div id="filter" class="form-horizontal filter-date p-2 border-bottom mb-2">
+            <div id="filter" class="form-horizontal filter-date p-2 mb-2">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group form-group-sm row text-sm mb-0">
