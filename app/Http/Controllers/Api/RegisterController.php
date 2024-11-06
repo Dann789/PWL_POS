@@ -14,7 +14,7 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all() , [
           'username' => 'required',
           'nama' => 'required',
-          'password' => 'required|min:5|confirmed',
+          'password' => 'required|min:6|confirmed',
           'level_id' => 'required',
           'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);

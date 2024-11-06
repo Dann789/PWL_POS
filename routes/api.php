@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\LevelController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\BarangController;
+use App\Http\Controllers\Api\PenjualanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +51,17 @@ Route::get('kategoris/{kategori}', [KategoriController::class, 'show']);
 Route::put('kategoris/{kategori}', [KategoriController::class, 'update']);
 Route::delete('kategoris/{kategori}', [KategoriController::class, 'destroy']);
 
+Route::get('penjualans', [PenjualanController::class, 'index']);
+Route::post('penjualans', [PenjualanController::class, 'store']);
+Route::get('penjualans/{penjualan}', [PenjualanController::class, 'show']);
+Route::put('penjualans/{penjualan}', [PenjualanController::class, 'update']);
+Route::delete('penjualans/{penjualan}', [PenjualanController::class, 'destroy']);
+
 Route::post('/register1', App\Http\Controllers\Api\RegisterController::class)->name('register1');
+
+Route::post('/addbarang1', App\Http\Controllers\Api\BarangController::class)->name('addbarang1');
+
+Route::post('/addpenjualan1', App\Http\Controllers\Api\PenjualanController::class)->name('addpenjualan1');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
