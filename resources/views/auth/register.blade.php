@@ -17,15 +17,19 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/style.css') }}">
 </head>
 
 <body class="hold-transition register-page">
     <div class="register-box">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
-            <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a></div>
+          <a href="{{ url('/') }}" class="d-flex justify-content-center">
+            <img src="{{ asset('adminlte/logo-d.png') }}" alt="logo-brand" height="150px">
+          </a>
+            <div class="card-header text-center"><a href="{{ url('/') }}" class="h1"><b>Dann's</b> Store</a></div>
             <div class="card-body">
-                <p class="register-box-msg">Register New Staff</p>
+                <p class="register-box-msg">Silahkan daftar akun</p>
                 <form action="{{ url('register') }}" method="POST" id="form-register">
                     @csrf
                     <div class="form-group row">
@@ -44,31 +48,16 @@
                     <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control"
                             placeholder="Username">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
                         <small id="error-username" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" id="nama" name="nama" class="form-control"
                             placeholder="Nama">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
                         <small id="error-nama" class="error-text text-danger"></small>
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" id="password" name="password" class="form-control"
                             placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
                         <small id="error-password" class="error-text text-danger"></small>
                     </div>
                     <div class="row">
@@ -77,7 +66,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            <button type="submit" class="btn btn-outline-primary btn-block">Register</button>
                         </div>
                         <!-- /.col -->
                     </div>

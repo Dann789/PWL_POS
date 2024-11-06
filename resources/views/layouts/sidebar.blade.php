@@ -14,11 +14,17 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{ url('/') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }} ">
+                <a href="{{ url('/dashboard') }}" class="nav-link {{ $activeMenu == 'dashboard' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
+            <li class="nav-item"> 
+                <a href="{{ route('profile.index') }}" class="nav-link  {{ ($activeMenu == 'profile')? 'active' : '' }} "> 
+                  <i class="nav-icon fas fa-user-tie"></i> 
+                  <p>Profil</p> 
+                </a> 
+              </li> 
             <li class="nav-header">Data Pengguna</li>
             <li class="nav-item">
                 <a href="{{ url('/level') }}" class="nav-link {{ $activeMenu == 'level' ? 'active' : '' }} ">
@@ -64,6 +70,7 @@
                     <p>Transaksi Penjualan</p>
                 </a>
             </li>
+            <li class="nav-header">Log Out</li>
             <li class="nav-item bg-danger">
                 <a href="{{ url('/logout') }}" class="nav-link {{ $activeMenu == 'logout' ? 'active' : '' }} ">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
